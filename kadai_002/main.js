@@ -98,29 +98,36 @@ const rankCheck = score => {//引数が一つの時は()を省略可能
 const gameOver = id => {//引数が一つの時は()を省略可能
   clearInterval(id);//タイマーを終了させる
   // console.log('ゲーム終了！');
-  // 終了メッセージを表示する
-  const result = confirm(rankCheck(score));
-  // OKボタンがクリックされたらリロードする
-  if( result == true) {
+
+  // タイムアップを表示させる。
+  typedfield.textContent = '';
+  untypedfield.textContent = 'タイムアップ！';
+  
+  setTimeout(() => {
+    // 終了メッセージを表示する
+    const result = confirm(rankCheck(score));
+    // OKボタンがクリックされたらリロードする
+    if( result == true) {
     window.location.reload();
-  }
+    }
+  }, 10)
 };
 
 // カウントダウンタイマーの関数を定義
-const timer = () => {
+function timer() {
   // タイマー部分のHTML要素を取得する。
   let time = count.textContent;
 
   const id = setInterval(() => {
     // カウントダウンする
-    time --;//1減らす
+    time--; //1減らす
     count.textContent = time;
 
-    if (time <= 0){
-      gameOver(id)
+    if (time <= 0) {
+      gameOver(id);
     }
-  }, 1000);//1000ミリ秒ごとに
-};
+  }, 1000); //1000ミリ秒ごとに
+}
 
 //スタートボタンを押したときの処理
 start.addEventListener('click', () => {
